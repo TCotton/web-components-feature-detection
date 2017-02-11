@@ -1,0 +1,24 @@
+{
+  "minify": false,
+  "dest" : "app/scripts/library",
+  "uglify" : false,
+  "crawl" : false,
+  "options": [
+    "domPrefixes",
+    "prefixes",
+    "addTest",
+    "atRule",
+    "hasEvent",
+    "prefixed",
+    "prefixedCSS",
+    "prefixedCSSValue",
+    "testAllProps",
+    "testProp",
+    "testStyles",
+    "setClasses"
+  ],
+  "feature-detects": [
+    "test/htmlimports",
+    "test/elem/template"
+  ]
+}

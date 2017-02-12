@@ -78,6 +78,18 @@
   }());
 
   /**
+   * Detect Shadow DOM
+   */
+
+  (function modernizr_shadowdom() {
+
+    Modernizr.addTest('domshadow', function () {
+      return !!document.head.attachShadow;
+    });
+
+  }());
+
+  /**
    * Detect legacy Shadow DOM - legacy! depreceated!
    */
 
@@ -105,16 +117,6 @@
 
 }(window, Modernizr));
 
-/**
- * Detect the DOM shadow
- */
-(function (Modernizr) {
-  'use strict';
-  Modernizr.addTest('domshadow', function () {
-    return !!document.head.attachShadow;
-  });
-
-}(Modernizr));
 console.dir(Modernizr);
 /* eslint-disable */
 (function () {

@@ -16,8 +16,108 @@
  *  limitations under the License
  *
  */
-/* eslint-env browser */
-(function() {
+
+(function (window, Modernizr) {
+  'use strict';
+
+  (function modernizr_slotchange() {
+
+    /**
+     * Detect Custom Elements
+     */
+
+    Modernizr.addTest('slotchange', function () {
+      return Modernizr.hasEvent('slotchange');
+    });
+
+
+
+  }());
+
+  (function modernizr_customElements() {
+
+    /**
+     * Detect Custom Elements
+     */
+
+    Modernizr.addTest('customElements', function () {
+      return !!window.customElements;
+    });
+
+  }());
+
+
+  /**
+   * Detect template tag
+   */
+
+  (function modernizr_template() {
+
+    return Modernizr.template;
+
+  }());
+
+  /**
+   * Detect HTML impport
+   */
+
+  (function modernizr_htmlimport() {
+
+    return Modernizr.htmlimport;
+
+  }());
+
+  /**
+   * Detect mutationobserver
+   */
+
+  (function modernizr_mutationobserver() {
+
+    return Modernizr.mutationobserver;
+
+  }());
+
+  /**
+   * Detect legacy Shadow DOM - legacy! depreceated!
+   */
+
+  (function modernizr_shadowdom0() {
+
+    Modernizr.addTest('shadowdom0', function () {
+      return !!document.head.createShadowRoot;
+    });
+
+  }());
+
+  /**
+   * Detect custom elements - legacy! depreceated!
+   */
+
+  (function modernizr_customelement0() {
+
+    Modernizr.addTest('customelement0', function () {
+      return !!document.registerElement;
+    });
+
+  }());
+
+  //
+
+}(window, Modernizr));
+
+/**
+ * Detect the DOM shadow
+ */
+(function (Modernizr) {
+  'use strict';
+  Modernizr.addTest('domshadow', function () {
+    return !!document.head.attachShadow;
+  });
+
+}(Modernizr));
+console.dir(Modernizr);
+/* eslint-disable */
+(function () {
   'use strict';
 
   // Check to make sure service workers are supported in the current browser,
@@ -25,52 +125,53 @@
   // service worker from an insecure origin will trigger JS console errors. See
   // http://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features
   var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
-      // [::1] is the IPv6 localhost address.
-      window.location.hostname === '[::1]' ||
-      // 127.0.0.1/8 is considered localhost for IPv4.
-      window.location.hostname.match(
-        /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-      )
-    );
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+  );
 
   if ('serviceWorker' in navigator &&
-      (window.location.protocol === 'https:' || isLocalhost)) {
+    (window.location.protocol === 'https:' || isLocalhost)) {
     navigator.serviceWorker.register('service-worker.js')
-    .then(function(registration) {
-      // updatefound is fired if service-worker.js changes.
-      registration.onupdatefound = function() {
-        // updatefound is also fired the very first time the SW is installed,
-        // and there's no need to prompt for a reload at that point.
-        // So check here to see if the page is already controlled,
-        // i.e. whether there's an existing service worker.
-        if (navigator.serviceWorker.controller) {
-          // The updatefound event implies that registration.installing is set:
-          // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
-          var installingWorker = registration.installing;
+      .then(function (registration) {
+        // updatefound is fired if service-worker.js changes.
+        registration.onupdatefound = function () {
+          // updatefound is also fired the very first time the SW is installed,
+          // and there's no need to prompt for a reload at that point.
+          // So check here to see if the page is already controlled,
+          // i.e. whether there's an existing service worker.
+          if (navigator.serviceWorker.controller) {
+            // The updatefound event implies that registration.installing is set:
+            // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
+            var installingWorker = registration.installing;
 
-          installingWorker.onstatechange = function() {
-            switch (installingWorker.state) {
-              case 'installed':
-                // At this point, the old content will have been purged and the
-                // fresh content will have been added to the cache.
-                // It's the perfect time to display a "New content is
-                // available; please refresh." message in the page's interface.
-                break;
+            installingWorker.onstatechange = function () {
+              switch (installingWorker.state) {
+                case 'installed':
+                  // At this point, the old content will have been purged and the
+                  // fresh content will have been added to the cache.
+                  // It's the perfect time to display a "New content is
+                  // available; please refresh." message in the page's interface.
+                  break;
 
-              case 'redundant':
-                throw new Error('The installing ' +
-                                'service worker became redundant.');
+                case 'redundant':
+                  throw new Error('The installing ' +
+                    'service worker became redundant.');
 
-              default:
+                default:
                 // Ignore
-            }
-          };
-        }
-      };
-    }).catch(function(e) {
+              }
+            };
+          }
+        };
+      }).catch(function (e) {
       console.error('Error during service worker registration:', e);
     });
   }
 
   // Your custom JavaScript goes here
 })();
+/* eslint-enable */

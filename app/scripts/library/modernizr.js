@@ -818,6 +818,56 @@
 
   Modernizr.addTest('template', 'content' in createElement('template'));
 
+  /*!
+   {
+   "name": "DOM4 MutationObserver",
+   "property": "mutationobserver",
+   "caniuse": "mutationobserver",
+   "tags": ["dom"],
+   "authors": ["Karel Sedláček (@ksdlck)"],
+   "polyfills": ["mutationobservers"],
+   "notes": [{
+   "name": "MDN documentation",
+   "href": "https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver"
+   }]
+   }
+   !*/
+  /* DOC
+
+   Determines if DOM4 MutationObserver support is available.
+
+   */
+
+  Modernizr.addTest('mutationobserver',
+    !!window.MutationObserver || !!window.WebKitMutationObserver);
+
+
+
+  /*!
+   {
+   "name": "CustomEvent",
+   "property": "customevent",
+   "tags": ["customevent"],
+   "authors": ["Alberto Elias"],
+   "notes": [{
+   "name": "W3C DOM reference",
+   "href": "https://www.w3.org/TR/DOM-Level-3-Events/#interface-CustomEvent"
+   }, {
+   "name": "MDN documentation",
+   "href": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent"
+   }],
+   "polyfills": ["eventlistener"]
+   }
+   !*/
+  /* DOC
+
+   Detects support for CustomEvent.
+
+   */
+
+  Modernizr.addTest('customevent', 'CustomEvent' in window && typeof window.CustomEvent === 'function');
+
+
 
   /**
    * cssToDOM takes a kebab-case string and converts it to camelCase

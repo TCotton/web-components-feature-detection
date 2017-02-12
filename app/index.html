@@ -43,21 +43,10 @@
 <div class="wrapper">
 
   <header role="banner">
-    <h1>Header</h1>
+    <h1>Custom elements detection</h1>
   </header>
 
   <main id="content" class="group" role="main">
-
-    <div class='wrapper'>
-      <div class='todo-list'>
-      </div>
-      <div class='todo-list-remove'>
-      </div>
-      <div class='fancy-button'>
-      </div>
-      <div class='fancy-select'>
-      </div>
-    </div>
 
   </main>
 
@@ -65,9 +54,15 @@
     <p>Content info: message about data collected</p>
   </footer>
 
+  <iframe sandbox="allow-scripts">
+    <script>
+      setTimeout(function() {
+        alert('yes');
+      },100);
+    </script>
+  </iframe>
+
 </div>
-
-
 
 <!-- Add your site or app content here -->
 

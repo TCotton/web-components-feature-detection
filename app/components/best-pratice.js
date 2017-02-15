@@ -81,10 +81,12 @@ class ExampleCheckbox extends HTMLElement {
 }
 
 class ExampleClock extends HTMLElement {
-
+  // con't all set on mutation only on replacement
   constructor() {
     super();
   }
+
+  // used in Polymer so that JavaScript is matched with HTML
 
   static get is() {
     return 'example-clock';

@@ -36,41 +36,262 @@
   <link rel="canonical" href="http://www.example.com/">
   -->
   <!-- css -->
-  <link rel="stylesheet" href="https://c79c1c93b0f25c307fcc-36c27361a8fd0c41e6433f2373919198.ssl.cf3.rackcdn.com/starter.css">
+  <link rel="stylesheet"
+        href="https://c79c1c93b0f25c307fcc-36c27361a8fd0c41e6433f2373919198.ssl.cf3.rackcdn.com/starter.css">
+
+  <link rel="stylesheet" href="styles/todo-base.css">
+  <link rel="stylesheet" href="styles/todo-main.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/1.1.1/document-register-element.js"></script>
+  <script type="application/javascript"
+          src="https://c79c1c93b0f25c307fcc-36c27361a8fd0c41e6433f2373919198.ssl.cf3.rackcdn.com/shadydom.js"></script>
+  <script type="application/javascript"
+          src="https://c79c1c93b0f25c307fcc-36c27361a8fd0c41e6433f2373919198.ssl.cf3.rackcdn.com/shadycss.js"></script>
+  <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+
+
+  <!--
+    <link rel="import" href="components/header.html"/>
+  -->
+  <!--
+    <link rel="import" href="components/main.html" />
+  -->
+  <!--  <link rel="import" href="/components/main.html" />
+    <link rel="import" href="/components/footer.html" />-->
+
 
 </head>
 <body>
 <div class="wrapper">
 
-  <header role="banner">
-    <h1>Custom elements detection</h1>
-  </header>
+  <header-component></header-component>
+  <main-component></main-component>
+  <footer-component></footer-component>
 
-  <main id="content" class="group" role="main">
+  <template>
+    <header class="header">
+      <h1>todos</h1>
+      <label for="newTo">What needs to be done?</label>
+      <input class="new-todo" placeholder="What needs to be done?" id="newTo" name="newTo"/>
+    </header>
+  </template>
 
-  </main>
+  <template>
+    <section class="main">
+      <input class="toggle-all" type="checkbox"/>
 
-  <footer role="contentinfo">
-    <p>Content info: message about data collected</p>
-  </footer>
+      <ul clas="todo-list">
+        <li>Item here</li>
+      </ul>
+    </section>
+  </template>
 
-  <iframe sandbox="allow-scripts">
-    <script>
-      setTimeout(function() {
-        alert('yes');
-      },100);
-    </script>
-  </iframe>
+  <template>
+    <footer class="footer">
+
+    <span class="todo-count">
+      <strong>0</strong>
+    </span>
+
+      <ul class="filters">
+        <li>
+          <a href="#/">
+          </a>
+        </li>
+        <li>
+          <a href="#/active">
+            Active
+          </a>
+        </li>
+        <li>
+          <a href="#/completed">
+            Completed
+          </a>
+        </li>
+      </ul>
+
+      <button class="clear-completed">Clear completed</button>
+
+    </footer>
+  </template>
+
+  <script>
+
+    class HeaderComponent extends HTMLElement {
+
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+
+        const root = this.attachShadow({
+          mode: 'open'
+        });
+
+
+
+        const template = document.querySelectorAll('template')[0];
+        const clone = document.importNode(template.content, true);
+        root.appendChild(clone);
+
+      }
+
+    }
+
+    class MainComponent extends HTMLElement {
+
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+
+        const root = this.attachShadow({
+          mode: 'open'
+        });
+        const template = document.querySelectorAll('template')[1];
+        const clone = document.importNode(template.content, true);
+        root.appendChild(clone);
+
+      }
+
+    }
+
+    class FooterComponent extends HTMLElement {
+
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+
+        const root = this.attachShadow({
+          mode: 'open'
+        });
+        root.innerHTML = `<style>
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+.filters li {
+  display: inline;
+}
+
+.filters li a {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.filters li a:hover {
+  border-color: rgba(175, 47, 47, 0.1);
+}
+
+.filters li a.selected {
+  border-color: rgba(175, 47, 47, 0.2);
+}</style>`;
+        const template = document.querySelectorAll('template')[2];
+        const clone = document.importNode(template.content, true);
+        root.appendChild(clone);
+
+      }
+
+    }
+
+    window.customElements.define('header-component', HeaderComponent);
+    window.customElements.define('main-component', MainComponent);
+    window.customElements.define('footer-component', FooterComponent);
+
+  </script>
+
+  <script>
+
+    /*    function getImportedTemplate() {
+
+     const imports = document.querySelectorAll('link[rel=import]');
+
+     return Array.from(imports).map((link) => {
+     return link.import.querySelector('template');
+     }).filter((val) => {
+     return val !== null;
+     })[0];
+     }
+
+     function createdCallback() {
+     var imported = this.getImportedTemplate();
+     var content = imported.content;
+     document.querySelector('.wrapper').appendChild(document.importNode(content, true));
+     }
+
+     createdCallback();*/
+
+    class ExampleElement extends HTMLElement {
+
+      constructor() {
+        super();
+        // no inspecting attributes or children!
+      }
+
+      connectedCallback() {
+        /* const root = this.attachShadow({
+         mode: "open"
+         });
+         root.innerHTML = `<p>Here it is</p>`;*/
+      }
+
+      static get observedAttributes() {
+        return ['selected'];
+      }
+
+      attributeChangedCallback(attrName, oldVal, newVal) {
+        // An attribute was added, removed, updated or replaced
+        // Also called for initial values when
+        // an element is created by the parser, or
+        // upgraded
+        this[attrName] = newVal;
+      }
+
+      // synchronise attribute and properties
+
+      set selected(value) {
+        if (Object.is(this._selected, value)) {
+          return;
+        }
+        console.dir(value);
+        this._selected = value;
+      }
+
+      get selected() {
+        return this._selected;
+      }
+
+    }
+
+    window.customElements.define('example-element', ExampleElement);
+
+    /* const whateverHere = 'yep';
+
+     document.querySelector('.connected-callback').innerHTML =
+     `<example-element selected="whatever">${whateverHere} / Text here</example-element>`;*/
+
+  </script>
 
 </div>
 
 <!-- Add your site or app content here -->
 
 <!-- Javascript -->
-<script type="application/javascript" src="https://c79c1c93b0f25c307fcc-36c27361a8fd0c41e6433f2373919198.ssl.cf3.rackcdn.com/shadydom.js"></script>
-<script type="application/javascript" src="https://c79c1c93b0f25c307fcc-36c27361a8fd0c41e6433f2373919198.ssl.cf3.rackcdn.com/shadycss.js"></script>
-<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
-<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
 
 <!-- build:js scripts/main.min.js -->
 <script src="scripts/library/modernizr.js"></script>
@@ -79,10 +300,17 @@
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
   ga('create', 'UA-XXXXX-X', 'auto');
   ga('send', 'pageview');
 </script>
